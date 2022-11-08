@@ -1,0 +1,15 @@
+.preview-card {
+	display: inline-block;
+	width: 10em;
+	height: 20em;
+	margin: 1em;
+
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: white;	
+}
+
+body {
+  background:#ebebeb !important;
+}   
