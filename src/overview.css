@@ -31,7 +31,33 @@ nav {
 	width: 100%;
 	height: 60px;
 	background-color: #c8c8c8;
+
+	overflow: hidden;
 	text-align: center;
+	white-space: nowrap;
 
 	font-size: 46px;
+}
+	.leaflet-container {
+	height: 60em;
+	width: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	border: 2px solid #5e5e5e;
+	background: white;
+}
+.leaflet-container:hover{
+	cursor: crosshair;
+}
+.leaflet-control-attribution {
+	display: none;
+}
+#metainfo {
+		width: 100%;
+}
+td, th{
+	border: 2px solid #5e5e5e;
+}
+td:first-child{
+	width: 35%;
 }
