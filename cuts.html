@@ -18,7 +18,7 @@
 
 			filenames.forEach((filename) => {
 				const fragmentId = filename.slice(0,53);
-				list.insertAdjacentHTML('beforeend', `<li><a href="/${filename}">${fragmentId}.tiff</a> (<a href="/cut.html#${fragmentId}">просмотреть</a>)</li>`)
+				list.insertAdjacentHTML('beforeend', `<li><a href="/${filename}">${fragmentId}.tiff</a> (<a href="cut.html#${fragmentId}">просмотреть</a>)</li>`)
 			});
 
 		} catch(e) {
