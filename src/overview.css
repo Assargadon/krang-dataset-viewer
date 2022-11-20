@@ -71,8 +71,8 @@ nav{
 	width: 60vw;
 	max-width: 100%;
 	max-height: 100%;
-				border: 2px solid cyan;
-				background: white;
+	border: 2px solid cyan;
+	background: white;
 }
 .leaflet-control-attribution {
 	display: none;
@@ -82,4 +82,27 @@ nav{
 		right: 1em;
 		top: 2em;
 		width: 30vw;
+}
+	.leaflet-container {
+	height: 60em;
+	width: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	border: 2px solid #5e5e5e;
+	background: white;
+}
+.leaflet-container:hover{
+	cursor: crosshair;
+}
+.leaflet-control-attribution {
+	display: none;
+}
+#metainfo {
+		width: 100%;
+}
+td, th{
+	border: 2px solid #5e5e5e;
+}
+td:first-child{
+	width: 35%;
 }
