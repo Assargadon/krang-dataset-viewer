@@ -80,9 +80,13 @@ async function createList(link, pattern){
 	}
 }
 //deepzoom page
+function createSlideId() {
+	const slideId = document.URL.slice(-12);
+	console.log('slideID: ' + slideId)
+	return slideId;
+}
 function openDeepzoom() {
-	const slideId = document.URL.slice(-12)
-
+	let slideId = createSlideId();
 	$(document).ready(() => {
 		$('.slideId').append(slideId)
 		$('#downloadslide').append(`<a href="https://krang-dataset.website.yandexcloud.net/${slideId}.tiff">Скачать слайд ${slideId}.tiff</a>`);
@@ -112,4 +116,22 @@ function openDeepzoom() {
 
 		map.on('click', e => { console.debug("Clicked on:", e.latlng) });
 	});
+}
+async function insertCutsDeepzoom() {
+	try {
+		let slideId = createSlideId()
+		console.log('insertCutsDeepzoom exec: ' + slideId)
+		let cutsPatternDeepzoom = new RegExp(`${slideId}-cut.*`)
+		const filenames = await createList(cutsListLink, cutsPatternDeepzoom);
+		console.log('cuts Filenames: ' + filenames)
+		let listTarget = document.getElementById("display-cuts");
+			filenames.forEach((filename) => {
+				listTarget.insertAdjacentHTML('beforeend', `<p>Скачать фрагмент: <a href="/${filename}">${filename}</a></p>`)
+			});
+		console.log(filenames.length)
+		if (filenames.length == 0){listTarget.remove()}
+	}
+	catch (e) {
+		console.error("Can't load list of files: ", e);
+	}
 }

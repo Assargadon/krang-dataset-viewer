@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
     <script src='src/krang-dataset.js' defer></script>
   </head>
-  <body onload="openDeepzoom()">
+  <body onload="openDeepzoom(); insertCutsDeepzoom()">
     <nav><a href="index.html">Main</a></nav>
     <div class="container">
 
@@ -30,6 +30,7 @@
           <tr><td>Разное/примечания</td><td>глиома головного мозга</td></tr>
           <tr><td>Источник препарата</td><td><a href="#">ДГТУ</a></td></tr>
           <tr><td colspan="2" id="downloadslide"></td></tr>
+          <tr><td colspan="2" id="display-cuts"></td></tr>
       </table>
     </div>
   </body>
