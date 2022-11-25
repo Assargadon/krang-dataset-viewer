@@ -52,6 +52,9 @@ nav{
 	justify-content: center;
 	align-items: center;
 }
+div:has(.preview-card){
+	position: relative;
+}
 .preview-card{
 	display: inline-block;
 	width: 10em;
@@ -62,6 +65,13 @@ nav{
 	background-position: center;
 	background-color: white;
 	text-align: center;
+}
+.preview-info{
+	position: absolute;
+	bottom: 20px;
+	left: 15px;
+	text-align: center;
+	width: 10em;
 }
 .leaflet-container {
 height: 60em;
