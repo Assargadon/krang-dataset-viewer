@@ -5,11 +5,25 @@ const thumbnailsPattern = /[0-9a-f]{12}-preview.jpg/
 async function insertThumbnails() {
 	try {
 		const filenames = await createList(thumbnailsListLink, thumbnailsPattern);
+		const cutsList = await createList(cutsListLink, cutsPattern);
 
+		let cutsIcon = (data) => {
+			let resultText = data ? "есть фрагменты" : "нет фрагментов";
+			resultStyle = data ? 'green' : 'lightcoral';
+			result = {
+				resultText,
+				resultStyle
+			}
+			return result
+		}
 		const cardTemplate = data => `
+		<div>
 		<a href='deepzoom.html#${data.id}' class='preview-card' style='background-image: url(${data.url})'>
 			<p class='slide-id'>${data.id}</p>
-		</a>`;
+		</a>
+		<p class='preview-info' style="color: ${cutsIcon(data.hasCuts).resultStyle};">${cutsIcon(data.hasCuts).resultText}</p>
+		</div>`;
+
 		$(document).ready(() => {
 			const overviewRoot = $("#overview")
 			list.forEach(data => overviewRoot.append(cardTemplate(data)));
@@ -20,15 +34,26 @@ async function insertThumbnails() {
 		const list = filenames.map(filename => {
 			return {
 				url: prefix + filename,
-				id: filename.slice(11, 23)
+				id: filename.slice(11, 23),
+				hasCuts: false
 			}
 		})
+		compareLists(list, cutsList)
 	}
 	catch (e) {
 		document.body.insertAdjacentHTML('beforeend', `<h2 style="color: darkred">Не могу загрузить список слайдов!</h2>`)
 		console.error("Can't load list of files: ", e);
 	}
 }
+function compareLists(to, from) {
+	for (cut of from) {
+		cutId = cut.slice(0, 12)
+		for (iter of to) {
+			if (cutId == iter.id){iter.hasCuts = true}
+		}
+}
+}
+
 //cuts page
 const cutsListLink = "https://storage.yandexcloud.net/krang-dataset?list-type=2"
 const cutsPattern = /^[0-9a-f]{12}-cut__.*/
@@ -66,19 +91,20 @@ async function createList(link, pattern){
 		const previewPattern = pattern
 		traverseXmlDoc(doc.documentElement, 5, (path, tag)=>{
 			if(path == ".ListBucketResult.Contents.Key"){
-				console.log("filename", tag.textContent)
+				//console.log("filename", tag.textContent)
 				if(previewPattern.test(tag.textContent)){
 					filenames.push(tag.textContent);
 				}
 			}
 		});
-		console.log("filenames", filenames);
+		//console.log("filenames", filenames);
 		return filenames
 	} catch(e) {
 		console.error("Error while loading list of previews", e)
 		return null;
 	}
 }
+
 //deepzoom page
 function createSlideId() {
 	const slideId = document.URL.slice(-12);
@@ -120,15 +146,15 @@ function openDeepzoom() {
 async function insertCutsDeepzoom() {
 	try {
 		let slideId = createSlideId()
-		console.log('insertCutsDeepzoom exec: ' + slideId)
+		//console.log('insertCutsDeepzoom exec: ' + slideId)
 		let cutsPatternDeepzoom = new RegExp(`${slideId}-cut.*`)
 		const filenames = await createList(cutsListLink, cutsPatternDeepzoom);
-		console.log('cuts Filenames: ' + filenames)
+		//console.log('cuts Filenames: ' + filenames)
 		let listTarget = document.getElementById("display-cuts");
 			filenames.forEach((filename) => {
 				listTarget.insertAdjacentHTML('beforeend', `<p>Скачать фрагмент: <a href="/${filename}">${filename}</a></p>`)
 			});
-		console.log(filenames.length)
+		//console.log(filenames.length)
 		if (filenames.length == 0){listTarget.remove()}
 	}
 	catch (e) {
