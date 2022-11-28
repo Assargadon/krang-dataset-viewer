@@ -63,7 +63,8 @@ async function insertCuts() {
 		const filenames = await createList(cutsListLink, cutsPattern);
 		listTarget = document.getElementById("cuts_list");
 		filenames.forEach((filename) => {
-			listTarget.insertAdjacentHTML('beforeend', `<li><a href="/${filename}">${filename}</a></li>`)
+			const fragmentId = filename.slice(0,53);
+			listTarget.insertAdjacentHTML('beforeend', `<li><a href="/${filename}">${fragmentId}.tiff</a> (<a href="cut.html#${fragmentId}">просмотреть</a>)</li>`)
 		});
 	} catch (e) {
 		document.body.insertAdjacentHTML('beforeend', `<h2 style="color: darkred">Не могу загрузить список фрагментов!</h2>`)
