@@ -114,4 +114,12 @@ td:first-child{
 	position: absolute;
 	color: greenyellow;
 	font-weight: bold;
+	pointer-events: none;
+}
+.comment {
+	text-shadow: 0 0 5px black;
+	font-size: 3rem;
+	position: relative;
+	left: -25px;
+	top: -10px;
 }
