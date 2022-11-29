@@ -96,3 +96,22 @@ td, th{
 td:first-child{
 	width: 35%;
 }
+
+#fragment_viewer {
+	max-width: 90vw;
+	height: 90vh;
+	overflow: scroll;
+	position: relative;
+}
+
+		#fragment {
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+.marker {
+	position: absolute;
+	color: greenyellow;
+	font-weight: bold;
+}
