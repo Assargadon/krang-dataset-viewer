@@ -77,6 +77,6 @@ fragmentViewer.click(function (e) {
 	var x = e.clientX - rect.left;
 	var y = e.clientY - rect.top;
 	fragmentViewer.append(`<span class="marker" style="left: ${x - x_offset}px; top: ${y - y_offset}px; font-size: ${font_size}px;">&#9737; <span class="comment">${counter}</span></span>`)
-	console.log("Created marker "+ counter +" at Left: " + x + "Top: " + y);
+	console.log("Created marker "+ counter +" at Left: " + x + " Top: " + y);
 	counter++;
 });
