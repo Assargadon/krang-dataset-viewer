@@ -117,8 +117,6 @@ td:first-child{
 	cursor: crosshair;
 }
 #markerInfo{
-	position: relative;
-	top: -1.9rem;
 	flex: 0 1 auto;
 }
 #markerInfo tr, td{

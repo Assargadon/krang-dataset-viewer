@@ -11,7 +11,7 @@ let counter = 1;
 
 function addMarkerToTable(x, y) {
 	fragmentViewer.append(`<span class="marker" id='marker${counter}' style="left: ${x - x_offset}px; top: ${y - y_offset}px; font-size: ${font_size}px;">&#9737; <span class="comment">${counter}</span></span>`)
-	markerTable.insertAdjacentHTML('beforeend', `<tr><td class="marker-link" id="link${counter}" onclick="jumpToMarker(${counter})">Маркер ${counter}</td><td>${x}</td><td>${y}</td></tr>`)
+	markerTable.insertAdjacentHTML('beforeend', `<tr><td class="marker-link" id="link${counter}" onclick="jumpToMarker(${counter})">Маркер ${counter}</td><td>${Math.round(x)}</td><td>${Math.round(y)}</td></tr>`)
 
 	console.log("Created marker "+ counter +" at Left: " + x + " Top: " + y);
 	counter++;
