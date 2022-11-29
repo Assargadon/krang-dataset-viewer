@@ -103,19 +103,19 @@ td:first-child{
 	overflow: scroll;
 	position: relative;
 }
-
-		#fragment {
+	#fragment {
 	position: relative;
 	top: 0;
 	left: 0;
+	cursor: crosshair;
 }
-
 .marker {
 	position: absolute;
 	color: greenyellow;
 	font-weight: bold;
 	pointer-events: none;
 	white-space: nowrap;
+	opacity: 0.8;
 }
 .comment {
 	text-shadow: 0 0 5px black;
