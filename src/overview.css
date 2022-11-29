@@ -87,7 +87,7 @@ background: white;
 .leaflet-control-attribution {
 	display: none;
 }
-#metainfo {
+table {
 	width: 100%;
 }
 td, th{
@@ -123,4 +123,13 @@ td:first-child{
 	position: relative;
 	left: -25px;
 	top: -10px;
+}
+.marker-link{
+	color: #007bff;
+	font-size: 1.1rem;
+	font-weight: bold;
+}
+.marker-link:hover{
+	text-decoration: underline;
+	color: #0056b3;
 }
