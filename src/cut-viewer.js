@@ -9,10 +9,7 @@ let x_offset = font_size * 0.448125;
 let y_offset = font_size * 0.75;
 let counter = 1;
 
-function addMarker(e) {
-	var rect = e.target.getBoundingClientRect();
-	var x = e.clientX - rect.left;
-	var y = e.clientY - rect.top;
+function addMarkerToTable(x, y) {
 	fragmentViewer.append(`<span class="marker" id='marker${counter}' style="left: ${x - x_offset}px; top: ${y - y_offset}px; font-size: ${font_size}px;">&#9737; <span class="comment">${counter}</span></span>`)
 	markerTable.insertAdjacentHTML('beforeend', `<tr><td class="marker-link" id="link${counter}" onclick="jumpToMarker(${counter})">Маркер ${counter}</td><td>${x}</td><td>${y}</td></tr>`)
 
@@ -23,6 +20,13 @@ function addMarker(e) {
 function jumpToMarker(markerId) {
 	let markerTarget = document.getElementById(`marker${markerId}`)
 	markerTarget.scrollIntoView()
+}
+
+function createMarkerOnClick(e) {
+	var rect = e.target.getBoundingClientRect();
+	var x = e.clientX - rect.left;
+	var y = e.clientY - rect.top;
+	addMarkerToTable(x, y)
 }
 
 const positive = [
@@ -85,8 +89,8 @@ $(document).ready(() => {
 
 
 	positive.forEach(point => {
-		fragmentViewer.append(`<span class="marker" style="left: ${point.x - x_offset}px; top: ${point.y - y_offset}px; font-size: ${font_size}px;">&#9737;</span>`)
+		addMarkerToTable(point.x, point.y)
 	});
 });
 
-fragmentViewer.click(addMarker);
+fragmentViewer.click(createMarkerOnClick);
