@@ -1,16 +1,16 @@
 const fragmentId = document.URL.slice(-53)
 
 const img = document.getElementById('fragment')
-const fragmentViewer = $('#fragment_viewer')
-const markerTable = document.getElementById("markerInfo");
+const $fragmentViewer = $('#fragment_viewer')
 
-let font_size = 80;
-let x_offset = font_size * 0.448125;
-let y_offset = font_size * 0.75;
 let counter = 1;
 
 function addMarkerToTable(x, y) {
-	fragmentViewer.append(`<span class="marker" id='marker${counter}' style="left: ${x - x_offset}px; top: ${y - y_offset}px; font-size: ${font_size}px;">&#9737; <span class="comment">${counter}</span></span>`)
+	const markerTable = document.getElementById("markerInfo");
+	let font_size = 80;
+	let x_offset = font_size * 0.448125;
+	let y_offset = font_size * 0.75;
+	$fragmentViewer.append(`<span class="marker" id='marker${counter}' style="left: ${x - x_offset}px; top: ${y - y_offset}px; font-size: ${font_size}px;">&#9737; <span class="comment">${counter}</span></span>`)
 	markerTable.insertAdjacentHTML('beforeend', `<tr><td class="marker-link" id="link${counter}" onclick="jumpToMarker(${counter})">Маркер ${counter}</td><td>${Math.round(x)}</td><td>${Math.round(y)}</td></tr>`)
 	counter++;
 }
@@ -115,4 +115,4 @@ $(document).ready(() => {
 	});
 });
 
-fragmentViewer.click(createMarkerOnClick);
+$fragmentViewer.click(createMarkerOnClick);

@@ -108,7 +108,7 @@ td:first-child{
 
 
 .cut-viewer-container{
-	width: 90%;
+	width: 95%;
 	margin: 0 auto;
 	display: flex;
 }
@@ -117,7 +117,7 @@ td:first-child{
 	max-width: 90vw;
 	height: 90vh;
 	overflow: scroll;
-	flex: auto;
+	flex: 0 1 1000%;
 }
 	#fragment {
 	cursor: crosshair;
@@ -146,6 +146,11 @@ td:first-child{
 }
 #markerInfo tr, td{
 	height: 1rem;
+}
+#markerInfo td:nth-child(2)::before, #markerInfo td:nth-child(3)::before{
+	content: '';
+  display: block;
+  width: 50px;
 }
 #markerInfo td:first-child::before {
   content: '';
