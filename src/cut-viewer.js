@@ -1,6 +1,6 @@
 const fragmentId = document.URL.slice(-53)
-const img = document.getElementById('fragment')
 
+const img = document.getElementById('fragment')
 const fragmentViewer = $('#fragment_viewer')
 const markerTable = document.getElementById("markerInfo");
 
@@ -12,8 +12,6 @@ let counter = 1;
 function addMarkerToTable(x, y) {
 	fragmentViewer.append(`<span class="marker" id='marker${counter}' style="left: ${x - x_offset}px; top: ${y - y_offset}px; font-size: ${font_size}px;">&#9737; <span class="comment">${counter}</span></span>`)
 	markerTable.insertAdjacentHTML('beforeend', `<tr><td class="marker-link" id="link${counter}" onclick="jumpToMarker(${counter})">Маркер ${counter}</td><td>${Math.round(x)}</td><td>${Math.round(y)}</td></tr>`)
-
-	console.log("Created marker "+ counter +" at Left: " + x + " Top: " + y);
 	counter++;
 }
 
@@ -28,6 +26,30 @@ function createMarkerOnClick(e) {
 	var y = e.clientY - rect.top;
 	addMarkerToTable(x, y)
 }
+
+//zoom feat
+img.addEventListener('load', function (e) {
+	let width = img.naturalWidth;
+	const zoomIn = document.getElementById('zoomIn')
+	const zoomOut = document.getElementById('zoomOut')
+	const zoomCancel = document.getElementById('zoomCancel')
+
+	zoomIn.addEventListener('click', (e) => {
+		width+=100
+		img.style.width = width + "px";
+		e.stopPropagation()
+	})
+	zoomOut.addEventListener('click', (e) => {
+		width-=100
+		img.style.width = width + "px";
+		e.stopPropagation()
+	})
+	zoomCancel.addEventListener('click', (e) => {
+		width=7068
+		img.style.width = width + "px";
+		e.stopPropagation()
+	})
+});
 
 const positive = [
 			{x: 312, y: 5723},

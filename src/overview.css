@@ -21,6 +21,15 @@ a:hover{
 	color:#0056b3;
 	text-decoration:underline;
 }
+a:active{
+	color:#263c53;
+}
+a:visited{
+	color:#58a9ff;
+}
+nav a:visited{
+	color: #007bff;;
+}
 h1{
 	text-align: center;
 }
@@ -104,17 +113,33 @@ td:first-child{
 	display: flex;
 }
 #fragment_viewer {
+	position: relative;
 	max-width: 90vw;
 	height: 90vh;
 	overflow: scroll;
-	position: relative;
 	flex: auto;
 }
 	#fragment {
-	position: relative;
-	top: 0;
-	left: 0;
 	cursor: crosshair;
+}
+.zoombox{
+	position: fixed;
+	bottom: 5vh;
+	left: 6vw;
+	height: 30px;
+	width: 200px;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+.zoom {
+	background-color: greenyellow;
+	border-radius: 10px;
+	cursor: pointer;
+	user-select: none;
+	font-size: 1.3rem;
+	text-shadow: 0 0 4px #ebebeb;
+	opacity: 0.8;
 }
 #markerInfo{
 	flex: 0 1 auto;
@@ -125,7 +150,7 @@ td:first-child{
 #markerInfo td:first-child::before {
   content: '';
   display: block;
-  width: 100px;
+  width: 95px;
 }
 .marker {
 	position: absolute;
