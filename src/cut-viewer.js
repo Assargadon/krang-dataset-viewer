@@ -21,7 +21,6 @@ function jumpToMarker(x, y) {
 	createMarker(x, y, lastCount)
 } */
 
-
 const markersSource = [
 //!!! lat is horizontal(x), lng is vertical(y)!!!
 	{y: 312, x: 5723, count: 1},
@@ -75,7 +74,6 @@ const markersSource = [
 	{y: 1736, x: 2140, count: 49},
 	{y: 1684, x: 2305, count: 50 }
 	];
-
 $(document).ready(() => {
 	$('.fragmentId').append(fragmentId)
 	$('#downloadfragment').append(`<a href="https://krang-dataset.website.yandexcloud.net/${fragmentId}.tiff">Скачать фрагмент ${fragmentId}.tiff</a>`);
