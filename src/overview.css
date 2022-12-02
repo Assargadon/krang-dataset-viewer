@@ -116,30 +116,11 @@ td:first-child{
 	position: relative;
 	max-width: 90vw;
 	height: 90vh;
-	overflow: scroll;
 	flex: 0 1 1000%;
 }
 	#fragment {
+		height: 100%;
 	cursor: crosshair;
-}
-.zoombox{
-	position: fixed;
-	bottom: 5vh;
-	left: 6vw;
-	height: 30px;
-	width: 200px;
-	display: flex;
-	flex-direction: row;
-	gap: 10px;
-}
-.zoom {
-	background-color: greenyellow;
-	border-radius: 10px;
-	cursor: pointer;
-	user-select: none;
-	font-size: 1.3rem;
-	text-shadow: 0 0 4px #ebebeb;
-	opacity: 0.8;
 }
 #markerInfo{
 	flex: 0 1 auto;
@@ -175,6 +156,7 @@ td:first-child{
 .marker-link{
 	color: #007bff;
 	font-weight: bold;
+	cursor: pointer;
 }
 .marker-link:hover{
 	text-decoration: underline;
