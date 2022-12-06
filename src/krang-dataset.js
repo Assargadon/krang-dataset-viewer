@@ -152,8 +152,10 @@ async function insertCutsDeepzoom() {
 		const filenames = await createList(cutsListLink, cutsPatternDeepzoom);
 		//console.log('cuts Filenames: ' + filenames)
 		let listTarget = document.getElementById("display-cuts");
-			filenames.forEach((filename) => {
-				listTarget.insertAdjacentHTML('beforeend', `<p>Скачать фрагмент: <a href="/${filename}">${filename}</a></p>`)
+		filenames.forEach((filename) => {
+			//http://127.0.0.1:8000/krang-dataset-viewer/cut.html#01221fced24f-cut__x0074809-y0168929-w0007168-h0007168
+			//01221fced24f-cut__x0074809-y0168929-w0007168-h0007168.tiff
+				listTarget.insertAdjacentHTML('beforeend', `<p>Просмотреть фрагмент: <a href="/krang-dataset-viewer/cut.html#${filename.slice(0, -5)}">${filename.slice(0, -5)}</a></p>`)
 			});
 		//console.log(filenames.length)
 		if (filenames.length == 0){listTarget.remove()}
