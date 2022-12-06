@@ -21,6 +21,15 @@ a:hover{
 	color:#0056b3;
 	text-decoration:underline;
 }
+a:active{
+	color:#263c53;
+}
+a:visited{
+	color:#58a9ff;
+}
+nav a:visited{
+	color: #007bff;;
+}
 h1{
 	text-align: center;
 }
@@ -87,7 +96,7 @@ background: white;
 .leaflet-control-attribution {
 	display: none;
 }
-#metainfo {
+table {
 	width: 100%;
 }
 td, th{
@@ -95,4 +104,61 @@ td, th{
 }
 td:first-child{
 	width: 35%;
+}
+
+
+.cut-viewer-container{
+	width: 95%;
+	margin: 0 auto;
+	display: flex;
+}
+#fragment_viewer {
+	position: relative;
+	max-width: 90vw;
+	height: 90vh;
+	flex: 0 1 1000%;
+}
+	#fragment {
+		height: 100%;
+	cursor: crosshair;
+}
+#markerInfo{
+	flex: 0 1 auto;
+}
+#markerInfo tr, td{
+	height: 1rem;
+}
+#markerInfo td:nth-child(2)::before, #markerInfo td:nth-child(3)::before{
+	content: '';
+  display: block;
+  width: 50px;
+}
+#markerInfo td:first-child::before {
+  content: '';
+  display: block;
+  width: 95px;
+}
+.marker {
+	position: absolute;
+	color: greenyellow;
+	font-weight: bold;
+	pointer-events: none;
+	white-space: nowrap;
+	opacity: 0.8;
+}
+.comment {
+	text-shadow: 0 0 5px black;
+	font-size: 3rem;
+	position: relative;
+	left: -25px;
+	top: -10px;
+}
+.marker-link{
+	color: #007bff;
+	font-weight: bold;
+	cursor: pointer;
+}
+.marker-link:hover{
+	text-decoration: underline;
+	color: #0056b3;
 }
