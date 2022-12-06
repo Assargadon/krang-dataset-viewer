@@ -81,23 +81,33 @@ $(document).ready(() => {
 	markersSource.forEach(point => {
 		createMarker(point.x, point.y, point.count)
 	});
+	createOverlay();
 	//$fragmentViewer.click(createMarkerOnClick())
 });
 
 //init leaflet.js
+var imageUrl = `https://krang-dataset.website.yandexcloud.net/cuts/${fragmentId}.jpg`
+var imageBounds = [[0, 0], [7168, 7168]];
+var markersArray = []
 const map = L.map('fragment_viewer', {
 	crs: L.CRS.Simple,
 	minZoom: -2,
-	maxZoom: 1
+	maxZoom: 1,
+	maxBounds: imageBounds
 })
-var imageUrl = `https://krang-dataset.website.yandexcloud.net/cuts/${fragmentId}.jpg`,
-	imageBounds = [[0, 0], [7168, 7168]],
-	image = L.imageOverlay(imageUrl, imageBounds).addTo(map);
+var image = L.imageOverlay(imageUrl, imageBounds).addTo(map);
 map.fitBounds(imageBounds)
 
 //markers
 function createMarker(xPos, yPos, popupText) {
 	let message = popupText.toString()
-	let newMarker = L.marker([xPos, yPos]).addTo(map).bindPopup(message)
+	let newMarker = L.marker([xPos, yPos]).bindPopup(message)
+	markersArray.push(newMarker)
 	addMarkerToTable(xPos, yPos, popupText)
+}
+
+function createOverlay() {
+	var markersLayer = L.layerGroup(markersArray).addTo(map);
+	var overlayMaps = { 'Markers': markersLayer };
+	var layerControl = L.control.layers(null, overlayMaps).addTo(map)
 }
