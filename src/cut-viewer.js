@@ -83,6 +83,7 @@ $(document).ready(() => {
 	});
 	createOverlay();
 	//$fragmentViewer.click(createMarkerOnClick())
+	map.on('click', e => { console.log("Clicked on:", e.latlng);console.log(map.getBounds) });
 });
 
 //init leaflet.js

@@ -107,6 +107,91 @@ async function createList(link, pattern){
 }
 
 //deepzoom page
+// Init Leaflet
+//bounds = {topLeft, bottomRight}
+//var bounds = [[0, 0], [-1500, 1000]];
+var map = L.map('map', {
+	crs: L.CRS.Simple,
+	//maxBounds: bounds
+});
+L.tileLayer('http://krang-dataset.website.yandexcloud.net/deepzoom/{id}/{z}/{y}/{x}.jpg', {
+	id: createSlideId(),
+	minZoom: 0,
+	maxZoom: 8,
+	minNativeZoom: 0,
+	maxNativeZoom: 7,
+	tileSize: 2048,
+	noWrap: true,
+	attributionControl: false,
+	//bounds: bounds
+}).addTo(map);
+
+map.setView([0, 0], 0)
+
+map.on('click', e => {console.log("Clicked on:", e.latlng);});
+
+let markersArray = [];
+function createMarker(xPos, yPos) {
+	let counter = markersArray.length+1
+	let newMarker = L.marker([xPos, yPos]).addTo(map).bindPopup(counter + " x " + xPos + " y " + yPos)
+	console.log("New Marker" + counter + " x " + xPos + " y " + yPos)
+	markersArray.push(newMarker)
+	document.getElementById('markArrLength').innerHTML = markersArray.length
+	//console.log(newMarker)
+}
+document.getElementById('mapClick').addEventListener('change', e => {
+	if (document.getElementById('mapClick').checked){
+		map.addEventListener('click', createMarkerOnClick)
+	} else {
+		map.removeEventListener('click', createMarkerOnClick)
+		}
+	})
+function createMarkerOnClick(e) {
+		let lat = Math.round(e.latlng.lat);
+		let lng = Math.round(e.latlng.lng);
+	createMarker(lat, lng)
+}
+function flyToMarker(arrayIndex) {
+	let { lat, lng } = markersArray.at(arrayIndex-1)._latlng;
+	console.log(lat+' '+lng)
+	map.flyTo([lat, lng], 5)
+}
+function showMarkArr() {
+	let newTable = document.createElement('table');
+	newTable.setAttribute("id", "popup-list");
+	let counter = 1;
+	for (marker of markersArray) {
+		let { lat, lng } = marker._latlng;
+		//console.log(`this is lat: ${lat} and this is lng: ${lng}`)
+		let tr = newTable.insertRow();
+		let tdNum =  tr.insertCell();
+		tdNum.appendChild(document.createTextNode(counter))
+		counter++;
+		let tdX = tr.insertCell();
+		tdX.appendChild(document.createTextNode(lat))
+		let tdY = tr.insertCell();
+		tdY.appendChild(document.createTextNode(lng))
+	}
+	document.body.appendChild(newTable)
+}
+map.addEventListener('mousemove', (event) => {
+	let lat = Math.round(event.latlng.lat);
+	let lng = Math.round(event.latlng.lng);
+	document.getElementById('xMouseCoord').innerHTML = lat;
+	document.getElementById('yMouseCoord').innerHTML = lng;
+})
+//
+document.getElementById('showMarkersArr').addEventListener('click', (e) => {
+	if (document.getElementById('showMarkersArr').innerHTML.includes("Show")) {
+		showMarkArr()
+		document.getElementById('showMarkersArr').innerHTML = "Hide markers list";
+	} else {
+		let table = document.getElementById('popup-list')
+		table.remove()
+		document.getElementById('showMarkersArr').innerHTML = "Show markers list";
+	}
+})
+
 function createSlideId() {
 	const slideId = document.URL.slice(-12);
 	console.log('slideID: ' + slideId)
@@ -117,31 +202,6 @@ function openDeepzoom() {
 	$(document).ready(() => {
 		$('.slideId').append(slideId)
 		$('#downloadslide').append(`<a href="https://krang-dataset.website.yandexcloud.net/${slideId}.tiff">Скачать слайд ${slideId}.tiff</a>`);
-
-		var bounds = [[0, 0], [-1500, 1000]];
-
-		// Init Leaflet
-		var map = L.map('map', {
-			crs: L.CRS.Simple,
-			maxBounds: bounds
-		});
-
-
-		L.tileLayer('http://krang-dataset.website.yandexcloud.net/deepzoom/{id}/{z}/{y}/{x}.jpg', {
-			id: slideId,
-			minZoom: -3,
-			maxZoom: 8,
-			minNativeZoom: 0,
-			maxNativeZoom: 7,
-			tileSize: 2048,
-			noWrap: true,
-			attributionControl: false,
-			bounds: bounds
-		}).addTo(map);
-
-		map.setView([-200, 180], -1)
-
-		map.on('click', e => { console.debug("Clicked on:", e.latlng) });
 	});
 }
 async function insertCutsDeepzoom() {
@@ -153,8 +213,6 @@ async function insertCutsDeepzoom() {
 		//console.log('cuts Filenames: ' + filenames)
 		let listTarget = document.getElementById("display-cuts");
 		filenames.forEach((filename) => {
-			//http://127.0.0.1:8000/krang-dataset-viewer/cut.html#01221fced24f-cut__x0074809-y0168929-w0007168-h0007168
-			//01221fced24f-cut__x0074809-y0168929-w0007168-h0007168.tiff
 				listTarget.insertAdjacentHTML('beforeend', `<p>Просмотреть фрагмент: <a href="/krang-dataset-viewer/cut.html#${filename.slice(0, -5)}">${filename.slice(0, -5)}</a></p>`)
 			});
 		//console.log(filenames.length)
