@@ -1,3 +1,10 @@
+//Branch improve-map-script, TODO:
+//Separate loader scripts from map tools scripts
+//Remake tools on cuts viewer to match tools in deepzoom-viewer
+//Think about storing marker data outside the scripts (in JSON files individual for every image)
+
+
+
 //thumbnails page
 const thumbnailsListLink = "https://storage.yandexcloud.net/krang-dataset?list-type=2&prefix=thumbnails/"
 const thumbnailsPattern = /[0-9a-f]{12}-preview.jpg/
