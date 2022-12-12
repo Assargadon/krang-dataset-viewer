@@ -3,8 +3,6 @@
 //Remake tools on cuts viewer to match tools in deepzoom-viewer
 //Think about storing marker data outside the scripts (in JSON files individual for every image)
 
-
-
 //thumbnails page
 const thumbnailsListLink = "https://storage.yandexcloud.net/krang-dataset?list-type=2&prefix=thumbnails/"
 const thumbnailsPattern = /[0-9a-f]{12}-preview.jpg/
@@ -135,70 +133,6 @@ L.tileLayer('http://krang-dataset.website.yandexcloud.net/deepzoom/{id}/{z}/{y}/
 
 map.setView([0, 0], 0)
 
-map.on('click', e => {console.log("Clicked on:", e.latlng);});
-
-let markersArray = [];
-function createMarker(xPos, yPos) {
-	let counter = markersArray.length+1
-	let newMarker = L.marker([xPos, yPos]).addTo(map).bindPopup(counter + " x " + xPos + " y " + yPos)
-	console.log("New Marker" + counter + " x " + xPos + " y " + yPos)
-	markersArray.push(newMarker)
-	document.getElementById('markArrLength').innerHTML = markersArray.length
-	//console.log(newMarker)
-}
-document.getElementById('mapClick').addEventListener('change', e => {
-	if (document.getElementById('mapClick').checked){
-		map.addEventListener('click', createMarkerOnClick)
-	} else {
-		map.removeEventListener('click', createMarkerOnClick)
-		}
-	})
-function createMarkerOnClick(e) {
-		let lat = Math.round(e.latlng.lat);
-		let lng = Math.round(e.latlng.lng);
-	createMarker(lat, lng)
-}
-function flyToMarker(arrayIndex) {
-	let { lat, lng } = markersArray.at(arrayIndex-1)._latlng;
-	console.log(lat+' '+lng)
-	map.flyTo([lat, lng], 5)
-}
-function showMarkArr() {
-	let newTable = document.createElement('table');
-	newTable.setAttribute("id", "popup-list");
-	let counter = 1;
-	for (marker of markersArray) {
-		let { lat, lng } = marker._latlng;
-		//console.log(`this is lat: ${lat} and this is lng: ${lng}`)
-		let tr = newTable.insertRow();
-		let tdNum =  tr.insertCell();
-		tdNum.appendChild(document.createTextNode(counter))
-		counter++;
-		let tdX = tr.insertCell();
-		tdX.appendChild(document.createTextNode(lat))
-		let tdY = tr.insertCell();
-		tdY.appendChild(document.createTextNode(lng))
-	}
-	document.body.appendChild(newTable)
-}
-map.addEventListener('mousemove', (event) => {
-	let lat = Math.round(event.latlng.lat);
-	let lng = Math.round(event.latlng.lng);
-	document.getElementById('xMouseCoord').innerHTML = lat;
-	document.getElementById('yMouseCoord').innerHTML = lng;
-})
-//
-document.getElementById('showMarkersArr').addEventListener('click', (e) => {
-	if (document.getElementById('showMarkersArr').innerHTML.includes("Show")) {
-		showMarkArr()
-		document.getElementById('showMarkersArr').innerHTML = "Hide markers list";
-	} else {
-		let table = document.getElementById('popup-list')
-		table.remove()
-		document.getElementById('showMarkersArr').innerHTML = "Show markers list";
-	}
-})
-
 function createSlideId() {
 	const slideId = document.URL.slice(-12);
 	console.log('slideID: ' + slideId)
@@ -214,15 +148,12 @@ function openDeepzoom() {
 async function insertCutsDeepzoom() {
 	try {
 		let slideId = createSlideId()
-		//console.log('insertCutsDeepzoom exec: ' + slideId)
 		let cutsPatternDeepzoom = new RegExp(`${slideId}-cut.*`)
 		const filenames = await createList(cutsListLink, cutsPatternDeepzoom);
-		//console.log('cuts Filenames: ' + filenames)
 		let listTarget = document.getElementById("display-cuts");
 		filenames.forEach((filename) => {
 				listTarget.insertAdjacentHTML('beforeend', `<p>Просмотреть фрагмент: <a href="/krang-dataset-viewer/cut.html#${filename.slice(0, -5)}">${filename.slice(0, -5)}</a></p>`)
 			});
-		//console.log(filenames.length)
 		if (filenames.length == 0){listTarget.remove()}
 	}
 	catch (e) {
