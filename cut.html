@@ -7,22 +7,38 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
     <link rel="stylesheet" href="src/overview.css">
-    <link rel='stylesheet' href='src/L.Control.MousePosition.css'>
 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
-    <script src='src/cut-viewer.js' defer></script>
+    <script src='src/cut-viewer-load.js' defer></script>
+    <script src='src/map-script.js' defer></script>
   </head>
   <body>
     <nav class="navigation"><a href="cuts.html">Cuts</a></nav>
     <div class="container">
+      <div class="info-tools">
+        <div id="createmark">
+        <input type="number" name="x" id="xCoord" placeholder="x-coordinates">
+        <input type="number" name="y" id="yCoord" placeholder="y-coordinates">
+        <button  id="newMarkerButt" onclick="createMarker(document.getElementById('xCoord').value, document.getElementById('yCoord').value)">Create Marker</button>
+        <button  id="showCoordButt" onclick="showCoord(document.getElementById('xCoord').value, document.getElementById('yCoord').value)">Show coordinates</button><br/>
+        <label class="switch">
+          <input type="checkbox" id="mapClick">
+          <span class="slider"></span>
+        </label>Create markers by clicking on the map<br/>
+
+        fly to this <input type="number" name="num" id="markNum" placeholder="marker">
+        <button onclick="flyToMarker(document.getElementById('markNum').value)">Show marker</button>
+      </div>
+      <div id="moreInfo">
+        you have <span id="markArrLength">0</span> markers &nbsp; <button id="showMarkersArr">Show markers list</button> <br/>
+        mouse coordinates: X(<span id="xMouseCoord"></span>), Y(<span id="yMouseCoord"></span>)
+      </div>
+    </div>
       <h2>Фрагмент <span class="fragmentId"></span></h2>
     </div>
     <div class="cut-viewer-container">
-      <div id='fragment_viewer'>
+      <div class="fragment-map" id='map'>
 			</div>
-      <table id="markerInfo">
-          <tr><td>Фигуры митоза</td><td>Ось X</td><td>Ось Y</td></tr>
-      </table>
     </div>
     <div class="container">
       <div id="downloadfragment"></div>

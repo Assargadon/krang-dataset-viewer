@@ -40,7 +40,7 @@ button{
   display: inline-flex;
   align-items: center;
 }
-h1{
+h1, h2{
 	text-align: center;
 }
 main{
@@ -144,13 +144,18 @@ input:checked + .slider:before {
 }
 #popup-list{
 	position: fixed;
-	height: auto;
 	width: auto;
-	left: 10vw;
+	max-height: 78vh;
+	left: 1vw;
 	top: 20vh;
+	overflow: auto;
+	font-weight: bold;
 	text-shadow: 0 0 1px rgb(255, 255, 255);
 	z-index: 999;
-	background-color: rgba(204, 204, 204, 0.571);
+}
+#popup-list tbody{
+	height: max-content;
+	background-color: rgba(245, 245, 245, 0.749);
 }
 .leaflet-container {
 height: 60em;
@@ -186,10 +191,8 @@ td:first-child{
 	margin: 0 auto;
 	display: flex;
 }
-#fragment_viewer {
+.fragment-map {
 	position: relative;
-	max-width: 90vw;
-	height: 90vh;
 	flex: 0 1 1000%;
 }
 	#fragment {
